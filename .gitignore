@@ -11,3 +11,6 @@ pom.xml
 .lein-plugins/
 .repl
 .nrepl-port
+boltomic.iml
+bower_components
+npm-debug.log
