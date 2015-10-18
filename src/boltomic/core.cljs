@@ -13,12 +13,14 @@
 
 (defn header
   []
-  [:header.mdl-layout__header.is-casting-shadow
+  [:header.mdl-layout__header
    [:div.mdl-layout__header-row
     [:span.mdl-layout-title "Boltomic"]
     [:div.mdl-layout-spacer]
     [:nav.mdl-navigation.mdl-layout--large-screen-only
      [:a.mdl-navigation__link "Link"]]]])
+
+
 (defn footer
   []
   [:footer.mdl-mega-footer
@@ -26,32 +28,48 @@
     [:div.mdl-mega-footer__drop-down-section
      [:h1.mdl-mega-footer__heading "Boltomic Ltd"]
      [:ul.mdl-mega-footer__link-list
-      [:li "About"]]]]])
+      [:li "About"]]]]
+   [:div.mdl-mega-footer--bottom-section
+    [:div.mdl-logo "More Information"]
+    [:ul.mdl-mega-footer--link-list
+     [:li
+      [:a {} "www.boltomic.com"]]]]])
 
 
 (defn parallax
   []
   [:div "parallax"
-   [:img  {:src "images/barcelona.jpg"}]
+   [:img  {:src "images/polygon-10.jpg"}]
    "post-parallax"])
+
+
+(defn features
+  []
+  [:section.section--footer.mdl-color--white.mdl-grid
+   [:div.section__circle-container.mdl-cell.mdl-cell--2-col.mdl-cell--1-col-phone
+    [:div.section__circle-container__circle.mdl-color--accent
+     {:style {:width "100px" :height "100px" :borderRadius "50px"}}]]
+   [:div.section__text.mdl-cell.mdl-cell--4-col-desktop.mdl-cell--6-col-tablet.mdl-cell--3-col-phone
+    [:h5 "Title"]
+    "Qui sint ut et qui nisi cupidatat. Reprehenderit nostrud proident officia exercitation anim et pariatur ex."]])
 
 
 (defn content
   []
   [:main.mdl-layout__content
    [:div.page-content "content"
-    [parallax]]
+    [parallax]
+    [features]]
    [footer]])
 
 
-
-(defn hello-world []
+(defn layout []
   [:div.mdl-layout__container
    [:div.mdl-layout.mdl-js-layout.mdl-layout--fixed-header.has-drawer.is-upgraded
     [header]
     [content]]])
 
-(reagent/render-component [hello-world]
+(reagent/render-component [layout]
                           (. js/document (getElementById "app")))
 
 
