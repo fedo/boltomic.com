@@ -1,21 +1,21 @@
 (ns ^:figwheel-always boltomic.core
-    (:require
-              [reagent.core :as reagent :refer [atom]]))
+  (:require
+    [reagent.core :as reagent :refer [atom]]))
+
 
 (enable-console-print!)
 
-(println "Edits to this text should show up in your developer console.")
 
-;; define your app data so that it doesn't get over-written on reload
-
-(defonce app-state (atom {:text "Hello world!"}))
+(def app-state (atom {:text "Hello world!"}))
 
 
 (defn header
   []
   [:header.mdl-layout__header
    [:div.mdl-layout__header-row
-    [:span.mdl-layout-title "Boltomic"]
+    [:span.mdl-layout-title
+     [:a [:img {:src   "images/boltomic-logo-white.png"
+                :width "100px"}]]]
     [:div.mdl-layout-spacer]
     [:nav.mdl-navigation.mdl-layout--large-screen-only
      [:a.mdl-navigation__link "Link"]]]])
@@ -38,9 +38,73 @@
 
 (defn parallax
   []
-  [:div "parallax"
-   [:img  {:src "images/polygon-10.jpg"}]
-   "post-parallax"])
+  [:div
+   [:section.section--center.mdl-grid
+    [:div.mdl-cell.mdl-cell--12-col "parallax"]]
+   [:div [:img {:src "images/polygon-10.jpg"}]]])
+
+
+(defn speciality-component
+  [[name image]]
+  [:div
+   [:img {:src (str "images/logos/" image) :width "100px"}]
+   [:div name]])
+
+
+(def specialities
+  [["Clojure/ClojureScript" "clojure.png"]
+   ["React" "react.png"]
+   ["JavaScript" "javascript.png"]])
+
+
+(defn specialities-component
+  []
+  [:div
+   [:section.section--center.mdl-grid
+    [:div.mdl-cell.mdl-cell--12-col "parallax"]]
+   [:div [:h2 "Specialities"]]
+   (into [:div]
+     (map speciality-component specialities))])
+
+
+(defn current-interests
+  []
+  [:div
+   [:section.section--center.mdl-grid
+    [:div.mdl-cell.mdl-cell--12-col "parallax"]]
+   [:div [:h2 "Current Interests"]
+    [:div "Datomic"]
+    [:div "Elm"]
+    [:div "famous"]
+    ;
+    [:dev "React Native"]
+    ]])
+
+
+(defn tech-we-use
+  []
+  [:div
+   [:section.section--center.mdl-grid
+    [:div.mdl-cell.mdl-cell--12-col "parallax"]]
+   [:div [:h2 "Tech we use"]
+    [:div "Heroku"]
+    [:div "AWS"]
+    [:div "Elasticsearch"]
+    [:div "GitHub"]
+    ;
+    [:div "AngularJS"]
+    [:div "SASS"]
+    [:div "Gulp"]
+    [:div "Grunt"]
+    [:div "Bower"]
+    [:div "HTML5"]
+    ;
+    [:div "TeamCity"]
+    [:div "Go CD"]
+    [:div "PhoneGap"]
+    [:div "Java"]
+    [:div "Spring Framework"]
+    ]])
 
 
 (defn features
@@ -57,9 +121,11 @@
 (defn content
   []
   [:main.mdl-layout__content
-   [:div.page-content "content"
-    [parallax]
-    [features]]
+   [:div.page-content.mdl-color--white "content"
+    ;[features]
+    [specialities-component]
+    [tech-we-use]
+    [current-interests]]
    [footer]])
 
 
@@ -70,12 +136,12 @@
     [content]]])
 
 (reagent/render-component [layout]
-                          (. js/document (getElementById "app")))
+  (. js/document (getElementById "app")))
 
 
 (defn on-js-reload []
   ;; optionally touch your app-state to force rerendering depending on
   ;; your application
   ;; (swap! app-state update-in [:__figwheel_counter] inc)
-)
+  )
 
