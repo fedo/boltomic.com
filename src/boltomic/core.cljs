@@ -44,41 +44,46 @@
    [:div [:img {:src "images/polygon-10.jpg"}]]])
 
 
-(defn speciality-component
-  [[name image]]
-  [:div
-   [:img {:src (str "images/logos/" image) :width "100px"}]
-   [:div name]])
-
-
 (def specialities
-  [["Clojure/ClojureScript" "clojure.png"]
+  [["Clojure / ClojureScript" "clojure.png"]
    ["React" "react.png"]
    ["JavaScript" "javascript.png"]])
 
 
-(defn specialities-component
+(defn speciality-component
+  [[name image]]
+  [:div.mdl-cell.mdl-cell--2-col
+   [:img {:src (str "images/logos/" image) :width "100px"}]
+   [:div name]])
+
+
+(defn technology-component
   []
-  [:div
-   [:section.section--center.mdl-grid
-    [:div.mdl-cell.mdl-cell--12-col "parallax"]]
+  [:section.section--center.mdl-color--grey-800.mdl-color-text--white.mdl-typography--text-center
    [:div [:h2 "Specialities"]]
-   (into [:div]
-     (map speciality-component specialities))])
+   (into [:div.mdl-grid]
+     (concat
+       [[:div.mdl-cell.mdl-cell--3-col]]
+       (map speciality-component specialities)
+       [[:div.mdl-cell.mdl-cell--3-col]]))])
 
 
-(defn current-interests
+(def current-interests
+  [["Datomic" "datomic.png"]
+   ["React Native" "react-native.png"]
+   ["Famous" "famous.png"]
+   ["Elm" "elm.png"]])
+
+
+(defn current-interests-component
   []
-  [:div
-   [:section.section--center.mdl-grid
-    [:div.mdl-cell.mdl-cell--12-col "parallax"]]
-   [:div [:h2 "Current Interests"]
-    [:div "Datomic"]
-    [:div "Elm"]
-    [:div "famous"]
-    ;
-    [:dev "React Native"]
-    ]])
+  [:section.section--center.mdl-typography--text-center
+   [:div [:h2 "Current Interests"]]
+   (into [:div.mdl-grid]
+     (concat
+       [[:div.mdl-cell.mdl-cell--2-col]]
+       (map speciality-component current-interests)
+       [[:div.mdl-cell.mdl-cell--2-col]]))])
 
 
 (defn tech-we-use
@@ -123,9 +128,9 @@
   [:main.mdl-layout__content
    [:div.page-content.mdl-color--white "content"
     ;[features]
-    [specialities-component]
-    [tech-we-use]
-    [current-interests]]
+    [technology-component]
+    [current-interests-component]
+    [tech-we-use]]
    [footer]])
 
 
@@ -134,6 +139,7 @@
    [:div.mdl-layout.mdl-js-layout.mdl-layout--fixed-header.has-drawer.is-upgraded
     [header]
     [content]]])
+
 
 (reagent/render-component [layout]
   (. js/document (getElementById "app")))
