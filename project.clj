@@ -2,37 +2,46 @@
   :description "FIXME: write this!"
   :url "http://example.com/FIXME"
   :license {:name "Eclipse Public License"
-            :url "http://www.eclipse.org/legal/epl-v10.html"}
+            :url  "http://www.eclipse.org/legal/epl-v10.html"}
 
   :dependencies [[org.clojure/clojure "1.7.0"]
                  [org.clojure/clojurescript "1.7.122"]
                  [org.clojure/core.async "0.1.346.0-17112a-alpha"]
                  [reagent "0.5.0"]]
 
-  :plugins [[lein-cljsbuild "1.1.0"]
-            [lein-figwheel "0.4.1"]]
+  :plugins [[lein-bower "0.5.1"]
+            [lein-cljsbuild "1.1.0"]
+            [lein-figwheel "0.4.1"]
+            [lein-sass "0.3.0"]]
+
+  :bower-dependencies [[material-design-lite "1.0.6"]]
+
+  :bower {:directory "bower_components"}
 
   :source-paths ["src"]
 
-  :clean-targets ^{:protect false} ["resources/public/js/compiled" "target"]
+  :clean-targets ^{:protect false} ["resources/public/js/compiled" "resources/public/css" "target"]
+
+  :aliases {"css"      ["sass" "once"]
+            "css-auto" ["sass" "auto"]}
 
   :cljsbuild {
-    :builds [{:id "dev"
-              :source-paths ["src"]
+              :builds [{:id           "dev"
+                        :source-paths ["src"]
 
-              :figwheel { :on-jsload "boltomic.core/on-js-reload" }
+                        :figwheel     {:on-jsload "boltomic.core/on-js-reload"}
 
-              :compiler {:main boltomic.core
-                         :asset-path "js/compiled/out"
-                         :output-to "resources/public/js/compiled/boltomic.js"
-                         :output-dir "resources/public/js/compiled/out"
-                         :source-map-timestamp true }}
-             {:id "min"
-              :source-paths ["src"]
-              :compiler {:output-to "resources/public/js/compiled/boltomic.js"
-                         :main boltomic.core
-                         :optimizations :advanced
-                         :pretty-print false}}]}
+                        :compiler     {:main                 boltomic.core
+                                       :asset-path           "js/compiled/out"
+                                       :output-to            "resources/public/js/compiled/boltomic.js"
+                                       :output-dir           "resources/public/js/compiled/out"
+                                       :source-map-timestamp true}}
+                       {:id           "min"
+                        :source-paths ["src"]
+                        :compiler     {:output-to     "resources/public/js/compiled/boltomic.js"
+                                       :main          boltomic.core
+                                       :optimizations :advanced
+                                       :pretty-print  false}}]}
 
   :figwheel {
              ;; :http-server-root "public" ;; default and assumes "resources" 
@@ -64,4 +73,12 @@
 
              ;; to configure a different figwheel logfile path
              ;; :server-logfile "tmp/logs/figwheel-logfile.log" 
-             })
+             }
+
+  :sass {:src               "resources/sass"
+         :output-directory  "resources/public/css"
+
+         :delete-output-dir true
+         :source-maps       true
+         ;; :style :nested
+         })

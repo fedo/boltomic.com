@@ -11,7 +11,7 @@
 
 (defn header
   []
-  [:header.mdl-layout__header
+  [:header.mdl-layout__header.mdl-layout__header--seamed
    [:div.mdl-layout__header-row
     [:span.mdl-layout-title
      [:a [:img {:src   "images/boltomic-logo-white.png"
@@ -53,7 +53,7 @@
 (defn specialities-component
   []
   [:section.section--center.mdl-typography--text-center
-   [:div [:div.title "Specialities"]]
+   [:div [:div.bltmc-section-title "Specialities"]]
    (into [:div.mdl-grid]
      (concat
        [[:div.mdl-cell.mdl-cell--3-col]]
@@ -71,7 +71,7 @@
 (defn current-interests-component
   []
   [:section.section--center.mdl-typography--text-center.mdl-color--grey-800.mdl-color-text--white
-   [:div [:div.title "Current Interests"]]
+   [:div [:div.bltmc-section-title "Current Interests"]]
    (into [:div.mdl-grid]
      (concat
        [[:div.mdl-cell.mdl-cell--2-col]]
@@ -97,7 +97,7 @@
 (defn tech-we-use
   []
   [:section.section--center.mdl-typography--text-center
-   [:div [:div.title "Tech we use"]]
+   [:div [:div.bltmc-section-title "Tech we use"]]
    (map (fn [group] (into [:div.mdl-grid]
      (concat
        [[:div.mdl-cell.mdl-cell--3-col]]
@@ -110,13 +110,22 @@
   [:section])
 
 
+(defn open-source-component
+  []
+  [:section.section--center.mdl-typography--text-center.mdl-color--grey-800.bltmc-section-open-source
+   [:div
+    [:img {:src (str "images/logos/github.png" ) :style
+                {:max-width "200px" :max-height "200px"}}]]])
+
+
 (defn content
   []
   [:main.mdl-layout__content
    [:div.page-content.mdl-color--white
     [specialities-component]
     [current-interests-component]
-    [tech-we-use]]
+    [tech-we-use]
+    [open-source-component]]
    [contact-component]
    [footer]])
 
