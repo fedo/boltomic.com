@@ -4,3 +4,9 @@ body {
     font-family: 'Open Sans', sans-serif;
 }
 
+.title {
+    font-size: 45px;
+    line-height: 48px;
+    font-weight: 400;
+    padding: 24px;
+}

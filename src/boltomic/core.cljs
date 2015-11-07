@@ -23,25 +23,17 @@
 
 (defn footer
   []
-  [:footer.mdl-mega-footer
+  [:footer.mdl-mega-footer.mdl-color--grey-900
    [:div.mdl-mega-footer__middle-section
     [:div.mdl-mega-footer__drop-down-section
      [:h1.mdl-mega-footer__heading "Boltomic Ltd"]
      [:ul.mdl-mega-footer__link-list
       [:li "About"]]]]
-   [:div.mdl-mega-footer--bottom-section
+   [:div.mdl-mega-footer--middle-section
     [:div.mdl-logo "More Information"]
     [:ul.mdl-mega-footer--link-list
      [:li
       [:a {} "www.boltomic.com"]]]]])
-
-
-(defn parallax
-  []
-  [:div
-   [:section.section--center.mdl-grid
-    [:div.mdl-cell.mdl-cell--12-col "parallax"]]
-   [:div [:img {:src "images/polygon-10.jpg"}]]])
 
 
 (def specialities
@@ -53,14 +45,15 @@
 (defn speciality-component
   [[name image]]
   [:div.mdl-cell.mdl-cell--2-col
-   [:img {:src (str "images/logos/" image) :width "100px"}]
+   [:img {:src (str "images/logos/" image) :style
+               {:max-width "100px" :max-height "100px"}}]
    [:div name]])
 
 
-(defn technology-component
+(defn specialities-component
   []
-  [:section.section--center.mdl-color--grey-800.mdl-color-text--white.mdl-typography--text-center
-   [:div [:h2 "Specialities"]]
+  [:section.section--center.mdl-typography--text-center
+   [:div [:div.title "Specialities"]]
    (into [:div.mdl-grid]
      (concat
        [[:div.mdl-cell.mdl-cell--3-col]]
@@ -77,8 +70,8 @@
 
 (defn current-interests-component
   []
-  [:section.section--center.mdl-typography--text-center
-   [:div [:h2 "Current Interests"]]
+  [:section.section--center.mdl-typography--text-center.mdl-color--grey-800.mdl-color-text--white
+   [:div [:div.title "Current Interests"]]
    (into [:div.mdl-grid]
      (concat
        [[:div.mdl-cell.mdl-cell--2-col]]
@@ -86,51 +79,45 @@
        [[:div.mdl-cell.mdl-cell--2-col]]))])
 
 
+(def technologies
+  [[["AngularJS" "angularjs.png"]
+    ["HTML" "html.png"]
+    ["CSS" "css.svg"]
+   ]
+   [
+   ["GitHub" "github.png"]
+    ["Heroku" "heroku.png"]
+    ["Amazon Web Services" "aws.jpg"]
+   ]
+   [["Java" "java.png"]
+    ["Elasticsearch" "elasticsearch.png"]]]
+  )
+
+
 (defn tech-we-use
   []
-  [:div
-   [:section.section--center.mdl-grid
-    [:div.mdl-cell.mdl-cell--12-col "parallax"]]
-   [:div [:h2 "Tech we use"]
-    [:div "Heroku"]
-    [:div "AWS"]
-    [:div "Elasticsearch"]
-    [:div "GitHub"]
-    ;
-    [:div "AngularJS"]
-    [:div "SASS"]
-    [:div "Gulp"]
-    [:div "Grunt"]
-    [:div "Bower"]
-    [:div "HTML5"]
-    ;
-    [:div "TeamCity"]
-    [:div "Go CD"]
-    [:div "PhoneGap"]
-    [:div "Java"]
-    [:div "Spring Framework"]
-    ]])
+  [:section.section--center.mdl-typography--text-center
+   [:div [:div.title "Tech we use"]]
+   (map (fn [group] (into [:div.mdl-grid]
+     (concat
+       [[:div.mdl-cell.mdl-cell--3-col]]
+       (map speciality-component group)
+       [[:div.mdl-cell.mdl-cell--3-col]]))) technologies)])
 
 
-(defn features
+(defn contact-component
   []
-  [:section.section--footer.mdl-color--white.mdl-grid
-   [:div.section__circle-container.mdl-cell.mdl-cell--2-col.mdl-cell--1-col-phone
-    [:div.section__circle-container__circle.mdl-color--accent
-     {:style {:width "100px" :height "100px" :borderRadius "50px"}}]]
-   [:div.section__text.mdl-cell.mdl-cell--4-col-desktop.mdl-cell--6-col-tablet.mdl-cell--3-col-phone
-    [:h5 "Title"]
-    "Qui sint ut et qui nisi cupidatat. Reprehenderit nostrud proident officia exercitation anim et pariatur ex."]])
+  [:section])
 
 
 (defn content
   []
   [:main.mdl-layout__content
-   [:div.page-content.mdl-color--white "content"
-    ;[features]
-    [technology-component]
+   [:div.page-content.mdl-color--white
+    [specialities-component]
     [current-interests-component]
     [tech-we-use]]
+   [contact-component]
    [footer]])
 
 
