@@ -1,0 +1,16 @@
+
+.bltmc-menu {
+  @extend .bltmc--black-background;
+
+  visibility: hidden;
+  z-index: $z-index-menu;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  &.bltmc-menu--open {
+    visibility: visible;
+  }
+}

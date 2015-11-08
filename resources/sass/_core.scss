@@ -9,24 +9,25 @@
   background-color: rgba(black, 0.95);
 }
 
-
 .bltmc-mdl-layout__header--menu-open {
   @extend .bltmc--black-background;
 }
 
+.bltmc-footer-space {
+  height: 200px;
 
-.bltmc-menu {
-  @extend .bltmc--black-background;
+  @media screen and (max-width: $grid-desktop-breakpoint) {
+    height: 0;
+  }
+}
 
-  visibility: hidden;
-  z-index: $z-index-menu;
+.mdl-mega-footer.bltmc-mdl-mega-footer {
   position: fixed;
-  top: 0;
   bottom: 0;
-  left: 0;
-  right: 0;
+  width: 100%;
+  z-index: -1;
 
-  &.bltmc-menu--open {
-    visibility: visible;
+  @media screen and (max-width: $grid-desktop-breakpoint) {
+    position: inherit;
   }
 }

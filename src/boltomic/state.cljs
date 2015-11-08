@@ -16,4 +16,4 @@
 
 (defn toggle-menu!
   []
-  (swap! menu* assoc :visible not))
+  (swap! menu* assoc :visible (not (:visible @menu*))))

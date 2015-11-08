@@ -10,20 +10,27 @@
 
 (defn header
   []
-  [:header.mdl-layout__header.mdl-layout__header--seamed
-   {:class-name (when (:visible @menu*) "bltmc-mdl-layout__header--menu-open")}
-   [:div.mdl-layout__header-row
-    [:span.mdl-layout-title
-     [:a [:img {:src   "images/boltomic-logo-white.png"
-                :width "100px"}]]]
-    [:div.mdl-layout-spacer]
-    [:nav.mdl-navigation.mdl-layout--large-screen-only
-     [:a.mdl-navigation__link {:on-click #(state/set-menu-visible! true)} "Link"]]]])
+  (let [menu-visible (:visible @menu*)]
+    [:header.mdl-layout__header.mdl-layout__header--seamed.mdl-layout__header--no-drawer-button
+     {:class-name (when menu-visible "bltmc-mdl-layout__header--menu-open")}
+     [:div.mdl-layout__header-row
+      [:span.mdl-layout-title
+       [:a {:href "#"}
+        [:img {:src   "images/boltomic-logo-white.png"
+               :width "100px"}]]]
+      [:div.mdl-layout-spacer]
+      [:nav.mdl-navigation
+       [:a.mdl-navigation__link "Link"]
+       [:a.mdl-color-text--white
+        {:style    {:cursor "pointer"}
+         :on-click #(state/toggle-menu!)}
+        [:i.material-icons (if-not menu-visible
+                             "menu" "close")]]]]]))
 
 
 (defn footer
   []
-  [:footer.mdl-mega-footer.mdl-color--grey-900
+  [:footer.mdl-mega-footer.bltmc-mdl-mega-footer.mdl-color--grey-900
    [:div.mdl-mega-footer__middle-section
     [:div.mdl-mega-footer__drop-down-section
      [:h1.mdl-mega-footer__heading "Boltomic Ltd"]
@@ -35,6 +42,9 @@
      [:li
       [:a {} "www.boltomic.com"]]]]])
 
+(defn footer-space
+  []
+  [:div.bltmc-footer-space])
 
 (defn content
   []
@@ -45,6 +55,7 @@
     [sections/current-interests-component]
     [sections/tech-we-use]
     [sections/open-source-component]]
+   [footer-space]
    [sections/contact-component]
    [footer]])
 
@@ -59,7 +70,7 @@
 (defn layout []
   [:div.mdl-layout__container
    [menu-component]
-   [:div.mdl-layout.mdl-js-layout.mdl-layout--fixed-header.has-drawer.is-upgraded
+   [:div.mdl-layout.mdl-js-layout.mdl-layout--fixed-header.mdl-layout--no-drawer-button
     [header]
     [content]]])
 

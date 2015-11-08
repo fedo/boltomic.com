@@ -1,0 +1,10 @@
+
+.mdl-layout__header--no-drawer-button {
+  .mdl-layout__header-row {
+    padding: 0 $layout-header-desktop-indent 0 $layout-header-desktop-indent;
+
+    @media screen and (max-width: $layout-screen-size-threshold) {
+      padding: 0 $layout-header-mobile-indent 0 $layout-header-mobile-indent;
+    }
+  }
+}
