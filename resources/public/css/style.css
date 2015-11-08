@@ -16,7 +16,6 @@
  */
 /* Material Design Lite */
 /* ==========  TYPOGRAPHY  ========== */
-/* ==========  Color & Themes  ========== */
 /**
  * Copyright 2015 Google Inc. All Rights Reserved.
  *
@@ -5385,6 +5384,25 @@ ul, ol {
     .mdl-grid--no-spacing > .mdl-cell--12-col,
     .mdl-grid--no-spacing > .mdl-cell--12-col-desktop.mdl-cell--12-col-desktop {
       width: 100%; } }
+
+.c-max {
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto; }
+
+.bltmc--black-background, .bltmc-mdl-layout__header--menu-open, .bltmc-menu {
+  background-color: rgba(0, 0, 0, 0.95); }
+
+.bltmc-menu {
+  visibility: hidden;
+  z-index: 2;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0; }
+  .bltmc-menu.bltmc-menu--open {
+    visibility: visible; }
 
 .bltmc-section-title {
   font-size: 45px;

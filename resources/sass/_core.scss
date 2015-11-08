@@ -1,0 +1,32 @@
+
+.c-max {
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.bltmc--black-background {
+  background-color: rgba(black, 0.95);
+}
+
+
+.bltmc-mdl-layout__header--menu-open {
+  @extend .bltmc--black-background;
+}
+
+
+.bltmc-menu {
+  @extend .bltmc--black-background;
+
+  visibility: hidden;
+  z-index: $z-index-menu;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  &.bltmc-menu--open {
+    visibility: visible;
+  }
+}
