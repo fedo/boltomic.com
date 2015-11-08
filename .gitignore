@@ -14,3 +14,4 @@ pom.xml
 boltomic.iml
 bower_components
 npm-debug.log
+resources/public/css
