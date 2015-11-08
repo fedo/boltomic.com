@@ -8,3 +8,7 @@
     }
   }
 }
+
+.mdl-grid--max-width {
+    max-width: $grid-desktop-breakpoint;
+}

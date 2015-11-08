@@ -1,19 +1,14 @@
 
-.c-max {
-  max-width: 1200px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
 .bltmc--black-background {
   background-color: rgba(black, 0.95);
 }
 
 .bltmc-mdl-layout__header--menu-open {
-  @extend .bltmc--black-background;
+  background-color: transparent;
 }
 
 .bltmc-footer-space {
+  visibility: hidden;
   height: 200px;
 
   @media screen and (max-width: $grid-desktop-breakpoint) {
@@ -22,6 +17,7 @@
 }
 
 .mdl-mega-footer.bltmc-mdl-mega-footer {
+  @extend .mdl-shadow--2dp;
   position: fixed;
   bottom: 0;
   width: 100%;
@@ -29,5 +25,6 @@
 
   @media screen and (max-width: $grid-desktop-breakpoint) {
     position: inherit;
+    box-shadow: none;
   }
 }

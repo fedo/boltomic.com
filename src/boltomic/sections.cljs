@@ -10,7 +10,7 @@
 
 (defn speciality-component
   [[name image]]
-  [:div.mdl-cell.mdl-cell--2-col
+  [:div.mdl-cell.mdl-cell--3-col
    [:img {:src (str "images/logos/" image) :style
                {:max-width "100px" :max-height "100px"}}]
    [:div name]])
@@ -20,11 +20,11 @@
   []
   [:section.section--center.mdl-typography--text-center
    [:div [:div.bltmc-section-title "Specialities"]]
-   (into [:div.mdl-grid]
+   (into [:div.mdl-grid.mdl-grid--max-width]
      (concat
-       [[:div.mdl-cell.mdl-cell--3-col]]
+       [[:div.mdl-cell.mdl-cell--1-col]]
        (map speciality-component specialities)
-       [[:div.mdl-cell.mdl-cell--3-col]]))])
+       [[:div.mdl-cell.mdl-cell--1-col]]))])
 
 
 (def current-interests
@@ -38,11 +38,12 @@
   []
   [:section.section--center.mdl-typography--text-center.mdl-color--grey-800.mdl-color-text--white
    [:div [:div.bltmc-section-title "Current Interests"]]
-   (into [:div.mdl-grid]
+   (into [:div.mdl-grid.mdl-grid--max-width]
      (concat
-       [[:div.mdl-cell.mdl-cell--2-col]]
+       ;[[:div.mdl-cell.mdl-cell--2-col]]
        (map speciality-component current-interests)
-       [[:div.mdl-cell.mdl-cell--2-col]]))])
+       ;[[:div.mdl-cell.mdl-cell--2-col]]
+       ))])
 
 
 (def technologies
@@ -60,11 +61,12 @@
   []
   [:section.section--center.mdl-typography--text-center
    [:div [:div.bltmc-section-title "Tech we use"]]
-   (map (fn [group] (into [:div.mdl-grid]
+   (map (fn [group] (into [:div.mdl-grid.mdl-grid--max-width]
                       (concat
-                        [[:div.mdl-cell.mdl-cell--3-col]]
+                        [[:div.mdl-cell.mdl-cell--1-col]]
                         (map speciality-component group)
-                        [[:div.mdl-cell.mdl-cell--3-col]]))) technologies)])
+                        [[:div.mdl-cell.mdl-cell--2-col]]
+                        ))) technologies)])
 
 
 (defn contact-component

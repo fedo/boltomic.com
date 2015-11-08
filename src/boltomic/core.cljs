@@ -21,7 +21,7 @@
       [:div.mdl-layout-spacer]
       [:nav.mdl-navigation
        [:a.mdl-navigation__link "Link"]
-       [:a.mdl-color-text--white
+       [:label.mdl-js-button.mdl-button.mdl-button--icon
         {:style    {:cursor "pointer"}
          :on-click #(state/toggle-menu!)}
         [:i.material-icons (if-not menu-visible
@@ -50,7 +50,6 @@
   []
   [:main.mdl-layout__content
    [:div.page-content.mdl-color--white
-    [:div "app-state=" (str @state/app-state)]
     [sections/specialities-component]
     [sections/current-interests-component]
     [sections/tech-we-use]
@@ -60,11 +59,22 @@
    [footer]])
 
 
+(def menu-items
+  [["Home" "#"]
+   ["Specialities" "#/specialities"]
+   ["Current Interests" "#/current-interests"]
+   ["Tech we use" "#/technologies"]
+   ["About me" "#/about-me"]])
+
+
 (defn menu-component
   []
-  [:div.bltmc-menu {:class-name (when (:visible @menu*) "bltmc-menu--open")
+  [:div.bltmc-menu.mdl-color-text--white {:class-name (when (:visible @menu*) "bltmc-menu--open")
                     :on-click   #(state/set-menu-visible! false)}
-   [:div.bltmc-menu__links]])
+   [:div.bltmc-menu__holder
+    (into [:div.bltmc-menu__items]
+     (map (fn [[name url]]
+            [:h3.bltmc-menu__item [:a {:href url} name] ]) menu-items))]])
 
 
 (defn layout []
