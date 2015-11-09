@@ -8,3 +8,14 @@ $performance_font: 'Open Sans', sans-serif;
 
 $grid-desktop-columns: 12;
 $grid-tablet-columns: 12;
+
+/* Colors */
+
+$color-primary: $palette-blue-500;
+$color-primary-dark: $palette-blue-700;
+$color-accent: $palette-lime-A200;
+
+$color-primary-contrast: $color-dark-contrast;
+$color-accent-contrast: $color-dark-contrast;
+
+$layout-header-bg-color: unquote("rgb(#{$palette-blue-700})");

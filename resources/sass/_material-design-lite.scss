@@ -19,9 +19,11 @@
 
 /* Material Design Lite */
 
+@import "../../bower_components/material-design-lite/src/palette/palette";
+
 // Variables and mixins
-@import "material-design-lite-variables";
 @import "../../bower_components/material-design-lite/src/variables";
+@import "material-design-lite-variables";
 @import "../../bower_components/material-design-lite/src/mixins";
 
 // Resets and dependencies
@@ -29,7 +31,6 @@
 @import "../../bower_components/material-design-lite/src/typography/typography";
 
 // Components
-@import "../../bower_components/material-design-lite/src/palette/palette";
 @import "../../bower_components/material-design-lite/src/ripple/ripple";
 @import "../../bower_components/material-design-lite/src/animation/animation";
 //@import "../../bower_components/material-design-lite/src/badge/badge";

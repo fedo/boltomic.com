@@ -1,11 +1,11 @@
 (ns ^:figwheel-always boltomic.core
-  (:require [boltomic.state :as state :refer [menu*]]
+  (:require [boltomic.menu :refer [menu-component]]
+    [boltomic.state :as state :refer [menu*]]
             [boltomic.sections :as sections]
             [reagent.core :as reagent :refer [atom]]))
 
 
 (enable-console-print!)
-
 
 
 (defn header
@@ -20,7 +20,6 @@
                :width "100px"}]]]
       [:div.mdl-layout-spacer]
       [:nav.mdl-navigation
-       [:a.mdl-navigation__link "Link"]
        [:label.mdl-js-button.mdl-button.mdl-button--icon
         {:style    {:cursor "pointer"}
          :on-click #(state/toggle-menu!)}
@@ -52,29 +51,11 @@
    [:div.page-content.mdl-color--white
     [sections/specialities-component]
     [sections/current-interests-component]
-    [sections/tech-we-use]
+    [sections/tech-i-use]
     [sections/open-source-component]]
    [footer-space]
    [sections/contact-component]
    [footer]])
-
-
-(def menu-items
-  [["Home" "#"]
-   ["Specialities" "#/specialities"]
-   ["Current Interests" "#/current-interests"]
-   ["Tech we use" "#/technologies"]
-   ["About me" "#/about-me"]])
-
-
-(defn menu-component
-  []
-  [:div.bltmc-menu.mdl-color-text--white {:class-name (when (:visible @menu*) "bltmc-menu--open")
-                    :on-click   #(state/set-menu-visible! false)}
-   [:div.bltmc-menu__holder
-    (into [:div.bltmc-menu__items]
-     (map (fn [[name url]]
-            [:h3.bltmc-menu__item [:a {:href url} name] ]) menu-items))]])
 
 
 (defn layout []

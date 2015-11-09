@@ -31,6 +31,18 @@
 
   .bltmc-menu__item {
     text-align: center;
+    a {
+      text-transform: uppercase;
+      font-size: 2rem;
+      line-height: 3rem;
+      text-decoration: none;
+      color: white;
+
+      &:hover {
+        color: unquote("rgb(#{$color-accent})");
+
+      }
+    }
   }
 
 }
