@@ -3,10 +3,39 @@
   font-size: 45px;
   line-height: 48px;
   font-weight: 400;
-  padding: 24px;
+  padding: 24px 0;
 }
 
 
 .bltmc-section-open-source {
   padding: 16px 0;
+}
+
+.bltmc-contact-form {
+  .mdl-textfield__label {
+    color: unquote("rgb(#{$palette-grey-700})");
+  }
+  .mdl-textfield__input {
+    border-color: unquote("rgb(#{$palette-grey-800})");
+  }
+}
+
+$bltmc-technology-logo-size: 140px;
+
+.bltmc-technology-logo {
+  width: $bltmc-technology-logo-size;
+  height: $bltmc-technology-logo-size;
+  max-width: 100%;
+  display: inline-block;
+
+  .bltmc-technology-logo__image-wrapper {
+    img {
+      max-width: 100%;
+      max-height: 100%;
+    }
+  }
+}
+
+.bltmc-technology-logo__name {
+
 }

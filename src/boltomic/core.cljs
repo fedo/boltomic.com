@@ -3,7 +3,7 @@
             [boltomic.menu :refer [menu-component]]
             [boltomic.state :as state :refer [menu*]]
             [boltomic.sections :as sections]
-            [reagent.core :as reagent :refer [atom]]))
+            [reagent.core :as reagent :refer [atom create-class]]))
 
 
 (enable-console-print!)
@@ -45,7 +45,7 @@
 
 
 (defn layout []
-  (reagent/create-class
+  (create-class
     {:componentWillMount
      #(state/listen-resize-event)
      :component-will-unmount

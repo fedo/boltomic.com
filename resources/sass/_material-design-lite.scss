@@ -22,8 +22,8 @@
 @import "../../bower_components/material-design-lite/src/palette/palette";
 
 // Variables and mixins
-@import "../../bower_components/material-design-lite/src/variables";
 @import "material-design-lite-variables";
+@import "../../bower_components/material-design-lite/src/variables";
 @import "../../bower_components/material-design-lite/src/mixins";
 
 // Resets and dependencies
@@ -34,7 +34,7 @@
 @import "../../bower_components/material-design-lite/src/ripple/ripple";
 @import "../../bower_components/material-design-lite/src/animation/animation";
 //@import "../../bower_components/material-design-lite/src/badge/badge";
-//@import "../../bower_components/material-design-lite/src/button/button";
+@import "../../bower_components/material-design-lite/src/button/button";
 //@import "../../bower_components/material-design-lite/src/card/card";
 //@import "../../bower_components/material-design-lite/src/checkbox/checkbox";
 //@import "../../bower_components/material-design-lite/src/data-table/data-table";
@@ -49,7 +49,7 @@
 //@import "../../bower_components/material-design-lite/src/spinner/spinner";
 //@import "../../bower_components/material-design-lite/src/switch/switch";
 //@import "../../bower_components/material-design-lite/src/tabs/tabs";
-//@import "../../bower_components/material-design-lite/src/textfield/textfield";
+@import "../../bower_components/material-design-lite/src/textfield/textfield";
 //@import "../../bower_components/material-design-lite/src/tooltip/tooltip";
 @import "../../bower_components/material-design-lite/src/shadow/shadow";
 @import "../../bower_components/material-design-lite/src/grid/grid";
