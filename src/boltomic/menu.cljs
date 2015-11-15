@@ -16,9 +16,10 @@
 
 (defn menu-component
   []
-  [:div.bltmc-menu.mdl-color-text--white {:class-name (when (:visible @menu*) "bltmc-menu--open")
-                                          :on-click   #(state/set-menu-visible! false)}
+  [:div.bltmc-menu.mdl-color-text--white.animated.once.fadeIn
+   {:class-name (when (:visible @menu*) "bltmc-menu--open")
+    :on-click   #(state/set-menu-visible! false)}
    [:div.bltmc-menu__holder
     (into [:div.bltmc-menu__items]
       (map (fn [[name url]]
-             [:div.bltmc-menu__item [:a {:href url} name] ]) menu-items))]])
+             [:div.bltmc-menu__item [:a {:href url} name]]) menu-items))]])

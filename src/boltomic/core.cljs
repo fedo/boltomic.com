@@ -1,5 +1,6 @@
 (ns ^:figwheel-always boltomic.core
-  (:require [boltomic.menu :refer [menu-component]]
+  (:require [boltomic.footer :refer [footer-component footer-space]]
+            [boltomic.menu :refer [menu-component]]
             [boltomic.state :as state :refer [menu*]]
             [boltomic.sections :as sections]
             [reagent.core :as reagent :refer [atom]]))
@@ -27,23 +28,7 @@
                              "menu" "close")]]]]]))
 
 
-(defn footer
-  []
-  [:footer.mdl-mega-footer.bltmc-mdl-mega-footer.mdl-color--grey-900
-   [:div.mdl-mega-footer__middle-section
-    [:div.mdl-mega-footer__drop-down-section
-     [:h1.mdl-mega-footer__heading "Boltomic Ltd"]
-     [:ul.mdl-mega-footer__link-list
-      [:li "About"]]]]
-   [:div.mdl-mega-footer--middle-section
-    [:div.mdl-logo "More Information"]
-    [:ul.mdl-mega-footer--link-list
-     [:li
-      [:a {} "www.boltomic.com"]]]]])
 
-(defn footer-space
-  []
-  [:div.bltmc-footer-space])
 
 (defn content
   []
@@ -56,17 +41,21 @@
     [sections/open-source-component]]
    [footer-space]
    [sections/contact-component]
-   [footer]])
+   [footer-component]])
 
 
 (defn layout []
   (reagent/create-class
-    {:componentWillMount #(state/listen-resize-event)
-     :component-will-unmount #(state/unlisten-resize-event)
+    {:componentWillMount
+     #(state/listen-resize-event)
+     :component-will-unmount
+     #(state/unlisten-resize-event)
      :reagent-render
      (fn []
        [:div.mdl-layout__container
-        [menu-component]
+        {:class-name "animated once fadeIn"}
+        (when (:visible @menu*)
+          [menu-component])
         [:div.mdl-layout.mdl-js-layout.mdl-layout--fixed-header.mdl-layout--no-drawer-button
          [header]
          [content]]])}))

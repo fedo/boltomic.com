@@ -14,7 +14,8 @@
             [lein-figwheel "0.4.1"]
             [lein-sass "0.3.0"]]
 
-  :bower-dependencies [[material-design-lite "1.0.6"]]
+  :bower-dependencies [[material-design-lite "1.0.6"]
+                       [animate.css "3.4.0"]]
 
   :bower {:directory "bower_components"}
 

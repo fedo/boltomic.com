@@ -1,4 +1,12 @@
 
+.loader-logo {
+  text-align: center;
+
+  >img {
+    width: 200px;
+  }
+}
+
 .bltmc--black-background {
   background-color: rgba(black, 0.95);
 }
@@ -8,6 +16,7 @@
 }
 
 .bltmc-footer-space {
+  display: none; /* TODO */
   visibility: hidden;
   height: 200px;
 
@@ -18,7 +27,7 @@
 
 .mdl-mega-footer.bltmc-mdl-mega-footer {
   @extend .mdl-shadow--2dp;
-  position: fixed;
+  //position: fixed;
   bottom: 0;
   width: 100%;
   z-index: -1;
