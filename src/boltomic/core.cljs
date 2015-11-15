@@ -1,6 +1,6 @@
 (ns ^:figwheel-always boltomic.core
   (:require [boltomic.menu :refer [menu-component]]
-    [boltomic.state :as state :refer [menu*]]
+            [boltomic.state :as state :refer [menu*]]
             [boltomic.sections :as sections]
             [reagent.core :as reagent :refer [atom]]))
 
@@ -49,6 +49,7 @@
   []
   [:main.mdl-layout__content
    [:div.page-content.mdl-color--white
+    [sections/about-me-component]
     [sections/specialities-component]
     [sections/current-interests-component]
     [sections/tech-i-use]
@@ -59,11 +60,16 @@
 
 
 (defn layout []
-  [:div.mdl-layout__container
-   [menu-component]
-   [:div.mdl-layout.mdl-js-layout.mdl-layout--fixed-header.mdl-layout--no-drawer-button
-    [header]
-    [content]]])
+  (reagent/create-class
+    {:componentWillMount #(state/listen-resize-event)
+     :component-will-unmount #(state/unlisten-resize-event)
+     :reagent-render
+     (fn []
+       [:div.mdl-layout__container
+        [menu-component]
+        [:div.mdl-layout.mdl-js-layout.mdl-layout--fixed-header.mdl-layout--no-drawer-button
+         [header]
+         [content]]])}))
 
 
 (reagent/render-component [layout]

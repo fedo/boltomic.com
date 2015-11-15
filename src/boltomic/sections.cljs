@@ -1,4 +1,5 @@
-(ns boltomic.sections)
+(ns boltomic.sections
+  (:require [boltomic.state :refer [window*]]))
 
 
 
@@ -13,7 +14,7 @@
   [:div.mdl-cell.mdl-cell--3-col
    [:div {:style {:max-width "100%" :max-height "100%"}}
     [:img {:src (str "images/logos/" image) :style
-               {:max-width "50%" :max-height "100%" :display "inline-block"}}]]
+                {:max-width "50%" :max-height "100%" :display "inline-block"}}]]
    [:div name]])
 
 
@@ -62,12 +63,13 @@
   []
   [:section.section--center.mdl-typography--text-center
    [:div [:div.bltmc-section-title "Tech I Use"]]
-   (map (fn [group] (into [:div.mdl-grid.mdl-grid--max-width]
-                      (concat
-                        [[:div.mdl-cell.mdl-cell--1-col]]
-                        (map tech-component group)
-                        [[:div.mdl-cell.mdl-cell--2-col]]
-                        ))) technologies)])
+   (into [:div]
+     (map (fn [group] (into [:div.mdl-grid.mdl-grid--max-width]
+                        (concat
+                          [[:div.mdl-cell.mdl-cell--1-col]]
+                          (map tech-component group)
+                          [[:div.mdl-cell.mdl-cell--2-col]]
+                          ))) technologies))])
 
 
 (defn contact-component
@@ -81,3 +83,9 @@
    [:div
     [:img {:src (str "images/logos/github-white.png") :style
                 {:max-width "200px" :max-height "200px"}}]]])
+
+
+(defn about-me-component
+  []
+  [:section.section--center.mdl-typography--text-center.mdl-color--grey-800.mdl-color-text--white
+   {:style {:min-height (get-in @window* [:inner-height :value])}}])
