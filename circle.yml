@@ -7,7 +7,7 @@ dependencies:
     - lein bower install
 test:
   override:
-    - lein build
+    - lein build-test
 deployment:
   production:
     branch: master
