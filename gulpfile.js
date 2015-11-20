@@ -34,13 +34,13 @@ gulp.task('sass', function(){
         .on('error', notify.onError(function(error) {
             return 'SASS error compile: ' + error.message + ' on line ' + error.lineNumber + ' in file ' + error.fileName;
         }))
-        .pipe(autoprefixer({
-            browsers: ['last 3 versions'],
-            cascade: false
-        }))
-        .on('error', notify.onError(function(error) {
-            return 'autoprefixer error compile: ' + error;
-        }))
+        //.pipe(autoprefixer({
+        //    browsers: ['last 3 versions'],
+        //    cascade: false
+        //}))
+        //.on('error', notify.onError(function(error) {
+        //    return 'autoprefixer error compile: ' + error;
+        //}))
         .pipe(gulp.dest(dest_path + '/css'))
         .pipe(gulpSize({title: 'sass'}))
 });
