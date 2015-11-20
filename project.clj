@@ -12,6 +12,7 @@
   :plugins [[lein-bower "0.5.1"]
             [lein-cljsbuild "1.1.0"]
             [lein-figwheel "0.4.1"]
+            [lein-shell "0.4.0"]
             [lein-sass "0.3.0"]]
 
   :bower-dependencies [[material-design-lite "1.0.6"]
@@ -25,7 +26,7 @@
                                     "resources/public/css"
                                     "target"]
 
-  :aliases {"css"        ["sass" "once"]
+  :aliases {"css"        ["do" ["shell" "npm" "install"] ["shell" "npm" "run" "sass"]]
             "css-auto"   ["sass" "auto"]
             "build-test" ["-U" "do" ["clean"] ["bower" "install"] ["css"] ["cljsbuild" "once" "dev"]]
             "build"      ["-U" "do" ["clean"] ["bower" "install"] ["css"] ["cljsbuild" "once" "min"]]}
