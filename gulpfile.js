@@ -11,7 +11,6 @@ var autoprefixer = require('gulp-autoprefixer');
 
 
 gulp.task('deploy', function () {
-    console.log("[deploy] args.host=" + args.host + ", args.user=" + args.user);
     var remotePath = "/",
         conn = ftp.create({
             host: args.host,
