@@ -1,0 +1,16 @@
+dependencies:
+  override:
+    - npm install
+    - lein bower
+test:
+  override:
+    - lein build
+deployment:
+  production:
+    branch: master
+    commands:
+    - ./node_modules/gulp/bin/gulp.js deploy --host $FTP_HOST --user $FTP_USER --password $FTP_PASSWORD
+  staging:
+    branch: develop
+    commands:
+    - ./node_modules/gulp/bin/gulp.js deploy --host $TEST_FTP_HOST --user $TEST_FTP_USER --password $TEST_FTP_PASSWORD

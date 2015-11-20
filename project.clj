@@ -21,10 +21,14 @@
 
   :source-paths ["src"]
 
-  :clean-targets ^{:protect false} ["resources/public/js/compiled" "resources/public/css" "target"]
+  :clean-targets ^{:protect false} ["resources/public/js/compiled"
+                                    "resources/public/css"
+                                    "target"]
 
-  :aliases {"css"      ["sass" "once"]
-            "css-auto" ["sass" "auto"]}
+  :aliases {"css"        ["sass" "once"]
+            "css-auto"   ["sass" "auto"]
+            "build-test" ["-U" "do" ["clean"] ["bower" "install"] ["css"] ["cljsbuild" "once" "dev"]]
+            "build"      ["-U" "do" ["clean"] ["bower" "install"] ["css"] ["cljsbuild" "once" "min"]]}
 
   :cljsbuild {
               :builds [{:id           "dev"
