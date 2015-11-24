@@ -16,4 +16,4 @@ deployment:
   staging:
     branch: develop
     commands:
-    - ./node_modules/gulp/bin/gulp.js deploy --host $TEST_FTP_HOST --user $TEST_FTP_USER --password $TEST_FTP_PASSWORD
+    - ./node_modules/gulp/bin/gulp.js deploy --host $STAGING_FTP_HOST --user $STAGING_FTP_USER --password $STAGING_FTP_PASSWORD
