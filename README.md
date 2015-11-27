@@ -2,6 +2,12 @@
 
 FIXME: Write a one-line description of your library/project.
 
+## Circle CI
+
+[![Circle CI](https://circleci.com/gh/fedo/boltomic.com/tree/master.svg?style=svg)](https://circleci.com/gh/fedo/boltomic.com/tree/master) master
+
+[![Circle CI](https://circleci.com/gh/fedo/boltomic.com/tree/develop.svg?style=svg)](https://circleci.com/gh/fedo/boltomic.com/tree/develop) develop
+
 ## Overview
 
 FIXME: Write a paragraph about the library/project and highlight its goals.
