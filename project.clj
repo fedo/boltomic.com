@@ -81,11 +81,11 @@
              ;; :server-logfile "tmp/logs/figwheel-logfile.log" 
              }
 
-  ;:sass {:src               "resources/sass"
-  ;       :output-directory  "resources/public/css"
-  ;
-  ;       :delete-output-dir true
-  ;       :source-maps       true
-  ;       ;; :style :nested
-  ;       }
+  :sass {:src               "resources/sass"
+         :output-directory  "resources/public/css"
+
+         :delete-output-dir true
+         :source-maps       true
+         ;; :style :nested
+         }
   )
