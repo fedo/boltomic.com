@@ -1,8 +1,12 @@
 (ns ^:figwheel-always boltomic.core
-  (:require [boltomic.footer :refer [footer-component footer-space]]
+  (:require [boltomic.about-me :refer [about-me-component]]
+            [boltomic.current-interests :refer [current-interests-component]]
+            [boltomic.footer :refer [footer-component footer-space]]
             [boltomic.menu :refer [menu-component]]
+            [boltomic.open-source :refer [open-source-component]]
             [boltomic.state :as state :refer [menu*]]
-            [boltomic.sections :as sections]
+            [boltomic.specialities :refer [specialities-component]]
+            [boltomic.tech-i-use :refer [tech-i-use-component]]
             [reagent.core :as reagent :refer [atom create-class]]))
 
 
@@ -29,18 +33,16 @@
 
 
 
-
 (defn content
   []
   [:main.mdl-layout__content
    [:div.page-content.mdl-color--white
-    [sections/about-me-component]
-    [sections/specialities-component]
-    [sections/current-interests-component]
-    [sections/tech-i-use]
-    [sections/open-source-component]]
+    [about-me-component]
+    [specialities-component]
+    [current-interests-component]
+    [tech-i-use-component]
+    [open-source-component]]
    [footer-space]
-   [sections/contact-component]
    [footer-component]])
 
 
@@ -62,7 +64,7 @@
 
 
 (reagent/render-component [layout]
-  (. js/document (getElementById "app")))
+                          (. js/document (getElementById "app")))
 
 
 (defn on-js-reload []

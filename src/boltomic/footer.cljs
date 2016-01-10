@@ -37,6 +37,7 @@
         [:button.mdl-button.mdl-js-button.mdl-button--raised.mdl-js-ripple-effect.mdl-button--colored
          "Send message"]])}))
 
+
 (defn footer-component
   []
   [:div.mdl-color--grey-900
@@ -48,6 +49,7 @@
      ]]
    [:div.mdl-mini-footer
     "Boltomic Ltd"]])
+
 
 (defn footer-space
   []
