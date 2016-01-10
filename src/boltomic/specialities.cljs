@@ -10,9 +10,11 @@
 
 (defn specialities-component
   []
-  [:section.section--center.mdl-typography--text-center
-   [:div [:div.bltmc-section-title "Specialities"]]
+  [:section#slide-2.section--center.mdl-typography--text-center.slide
+   [:div.slide__bg]
+   [:div.slide__content
+    [:div.slide__text [:div.bltmc-section-title "Specialities"]]
    (into [:div.mdl-grid.mdl-grid--max-width]
          (map (fn [t]
                 [:div.mdl-cell--4-col
-                 [technology-component t]]) specialities))])
+                 [technology-component t]]) specialities))]])

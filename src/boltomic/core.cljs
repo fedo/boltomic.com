@@ -36,14 +36,16 @@
 (defn content
   []
   [:main.mdl-layout__content
-   [:div.page-content.mdl-color--white
+   [:div.page-content.mdl-color--white.slides
     [about-me-component]
     [specialities-component]
     [current-interests-component]
     [tech-i-use-component]
-    [open-source-component]]
-   [footer-space]
-   [footer-component]])
+    [open-source-component]
+    [footer-space]
+    [footer-component]]
+
+   ])
 
 
 (defn layout []

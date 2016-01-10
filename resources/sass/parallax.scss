@@ -1,0 +1,228 @@
+
+
+/* demo styles
+--------------------------------------------- */
+
+body {
+  //font: 120% / 1.5 Arial;
+  scroll-behavior: smooth;
+}
+
+* {
+  //box-sizing: border-box;
+  //margin: 0;
+  //padding: 0;
+}
+
+h1, p {
+  margin-bottom: 1.5em;
+}
+
+body > svg {
+  display: none;
+}
+
+
+/* demo nav bar
+--------------------------------------------- */
+
+//.nav {
+//  position: fixed;
+//  z-index: 100;
+//  right: 1em;
+//  top: 50%;
+//  -webkit-transform: translateY(-50%);
+//  transform: translateY(-50%);
+//  display: none;
+//}
+//.nav li {
+//  list-style: none;
+//  margin: .5em;
+//}
+//.nav a {
+//  display: inline-block;
+//  padding: .5em 1em;
+//  color: #fff;
+//  border-radius: 3px;
+//  background: rgba(0,0,0,.6);
+//}
+//.nav a:not(:hover) {
+//  text-decoration: none;
+//}
+
+
+/* slide layout
+--------------------------------------------- */
+
+.slide {
+  position: relative;
+  padding: 8% 0;
+}
+.slide__content {
+  max-width: 1200px;
+  margin: auto;
+}
+.slide__text, .slide__image {
+  padding: 8%;
+}
+.slide__image svg {
+  display: block;
+  width: 100%;
+  max-width: 560px;
+  margin: auto;
+}
+.slide__bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+}
+
+/* slide backgrounds */
+
+#slide-1 .slide__bg {
+  background-image: repeating-linear-gradient(
+                  rgb(102, 204, 102),
+                  rgb(102, 204, 102) 30px,
+                  rgb(92, 184, 92) 30px,
+                  rgb(92, 184, 92) 60px
+  );
+}
+#slide-2 .slide__bg {
+  background-image: repeating-linear-gradient(
+                  45deg,
+                  rgb(133, 173, 230),
+                  rgb(133, 173, 230) 30px,
+                  rgb(113, 153, 210) 30px,
+                  rgb(113, 153, 210) 60px
+  );
+}
+#slide-3 .slide__bg {
+  background-image: repeating-linear-gradient(
+                  rgb(153, 216, 101),
+                  rgb(153, 216, 101) 30px,
+                  rgb(133, 196, 81) 30px,
+                  rgb(133, 196, 81) 60px
+  );
+}
+#slide-4 .slide__bg {
+  background-image: repeating-linear-gradient(
+                  -45deg,
+                  rgb(133, 193, 230),
+                  rgb(133, 193, 230) 30px,
+                  rgb(113, 173, 210) 30px,
+                  rgb(113, 173, 210) 60px
+  );
+}
+#slide-5 .slide__bg {
+  background-image: repeating-linear-gradient(
+                  rgb(214, 229, 100),
+                  rgb(214, 229, 100) 30px,
+                  rgb(194, 209, 80) 30px,
+                  rgb(194, 209, 80) 60px
+  );
+}
+#slide-6 .slide__bg {
+  background-image: repeating-linear-gradient(
+                  45deg,
+                  rgb(133, 213, 230) 0px,
+                  rgb(133, 213, 230) 30px,
+                  rgb(113, 193, 210) 30px,
+                  rgb(113, 193, 210) 60px
+  );
+}
+
+
+/* misc
+--------------------------------------------- */
+
+.demo__info {
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+  font-size: 80%;
+  text-align: center;
+  background: rgba(255,255,255,.5);
+  padding: 0.5em;
+  z-index: 100;
+}
+
+
+/* Large screen layout
+--------------------------------------------- */
+
+@media screen and (min-width: 45em) {
+
+  .slide__content {
+    display: -webkit-flex;
+    display: flex;
+    align-items: center;
+  }
+  .slide__image, .slide__text {
+    padding: 3%;
+    -webkit-flex: 1;
+    flex: 1;
+  }
+  .slide:nth-child(2n) .slide__text {
+    -webkit-order: 1;
+    order: 1;
+  }
+  .nav {
+    display: block;
+  }
+
+  /* parallax */
+  @supports ((perspective: 1px) and (not (-webkit-overflow-scrolling: touch))) {
+
+    html, body {
+      overflow: hidden;
+      height: 100%;
+    }
+    body {
+      transform: translateZ(0px); /* Fix paint issues in Edge && Safari H/W acceleration */
+    }
+    .slides {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      overflow-x: hidden;
+      overflow-y: auto;
+      perspective: 300px;
+      scroll-behavior: smooth;
+    }
+    .slide, .slide__content {
+      transform-style: preserve-3d;
+    }
+    .slide__text {
+      transform: translateZ(60px) scale(.8);
+      transform-origin: 100% 50%;
+    }
+    .slide:nth-child(2n) .slide__image {
+      transform: translateZ(100px) scale(.67);
+      transform-origin: 100% 50%;
+    }
+    .slide:nth-child(2n) .slide__text {
+      transform-origin: 0% 50%;
+    }
+    .slide:nth-child(2n) .slide__bg {
+      transform: translateZ(59px) scale(.85);
+    }
+    .slide:nth-child(2n+1):not(:first-child) .slide__bg {
+      top: -50%;
+    }
+    .slide:nth-child(2n+1):not(:last-child) .slide__bg {
+      bottom: -50%;
+    }
+    .slide:first-child {
+      padding-top: 14%;
+    }
+    .slide:last-child {
+      padding-bottom: 14%;
+    }
+    .slide:nth-child(2n) {
+      z-index: 1; /* ensure slides overlay correctly */
+    }
+  }
+}

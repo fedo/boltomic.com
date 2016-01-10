@@ -16,10 +16,12 @@
 
 (defn tech-i-use-component
   []
-  [:section.section--center.mdl-typography--text-center
-   [:div [:div.bltmc-section-title "Tech I Use"]]
+  [:section#slide-4.section--center.mdl-typography--text-center.slide
+   [:div.slide_bg]
+   [:div.slide__content
+    [:div.slide__text [:div.bltmc-section-title "Tech I Use"]]
    (into [:div]
          (map (fn [group] (into [:div.mdl-grid.mdl-grid--max-width]
                                 (map (fn [t]
                                        [:div.mdl-cell--4-col
-                                        [technology-component t]]) group))) technologies))])
+                                        [technology-component t]]) group))) technologies))]])
