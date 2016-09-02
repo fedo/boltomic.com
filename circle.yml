@@ -17,4 +17,4 @@ deployment:
     branch: develop
     commands:
     - ./node_modules/gulp/bin/gulp.js deploy --host $STAGING_FTP_HOST --user $STAGING_FTP_USER --password $STAGING_FTP_PASSWORD
-    - aws s3 sync ./resources/public s3://$STAGING_S3_BUCKET
+    - aws s3 sync ./resources/public s3://$STAGING_S3_BUCKET/
