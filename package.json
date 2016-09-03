@@ -1,0 +1,20 @@
+{
+  "name": "boltomic",
+  "version": "1.0.0",
+  "description": "boltomic.com",
+  "main": "gulp.js",
+  "scripts": {
+    "sass": "node_modules/gulp/bin/gulp.js sass"
+  },
+  "dependencies": {
+    "gulp": "^3.9.0",
+    "gulp-util": "^3.0.7",
+    "minimist": "^1.2.0",
+    "vinyl-ftp": "^0.4.5",
+    "gulp-autoprefixer": "^3.1.0",
+    "gulp-if": "^2.0.0",
+    "gulp-notify": "^2.2.0",
+    "gulp-sass": "^2.1.0",
+    "gulp-size": "^2.0.0"
+  }
+}

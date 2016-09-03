@@ -1,5 +1,7 @@
 (ns boltomic.footer
-  (:require [reagent.core :as reagent :refer [atom create-class]]))
+  (:require [boltomic.contact-me :refer [contact-me-component]]
+            [boltomic.my-availability :refer [my-availability-component]]
+            [reagent.core :as reagent :refer [atom create-class]]))
 
 
 (defn contact-form
@@ -9,8 +11,8 @@
      (fn []
        (println "[contact-form] upgradeElements")
        (.upgradeElements js/componentHandler
-         (clj->js
-           (mapv #(.getElementById js/document %) ["contact-form--name" "contact-form--email-address" "contact-form--message"]))))
+                         (clj->js
+                           (mapv #(.getElementById js/document %) ["contact-form--name" "contact-form--email-address" "contact-form--message"]))))
      ;:component-will-unmount
      ;(fn []
      ;  (println "[contact-form] downgradeElements")
@@ -35,17 +37,19 @@
         [:button.mdl-button.mdl-js-button.mdl-button--raised.mdl-js-ripple-effect.mdl-button--colored
          "Send message"]])}))
 
+
 (defn footer-component
   []
   [:div.mdl-color--grey-900
    [:div.mdl-grid.mdl-grid--max-width
     [:div.mdl-cell.mdl-cell--6-col
-     [:h5.mdl-color-text--white "My Availabilty"]
-     ]
+     [my-availability-component]]
     [:div.mdl-cell.mdl-cell--6-col
-     [contact-form]]]
+     [contact-me-component]
+     ]]
    [:div.mdl-mini-footer
     "Boltomic Ltd"]])
+
 
 (defn footer-space
   []

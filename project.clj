@@ -12,6 +12,7 @@
   :plugins [[lein-bower "0.5.1"]
             [lein-cljsbuild "1.1.0"]
             [lein-figwheel "0.4.1"]
+            [lein-shell "0.4.0"]
             [lein-sass "0.3.0"]]
 
   :bower-dependencies [[material-design-lite "1.0.6"]
@@ -21,10 +22,14 @@
 
   :source-paths ["src"]
 
-  :clean-targets ^{:protect false} ["resources/public/js/compiled" "resources/public/css" "target"]
+  :clean-targets ^{:protect false} ["resources/public/js/compiled"
+                                    "resources/public/css"
+                                    "target"]
 
-  :aliases {"css"      ["sass" "once"]
-            "css-auto" ["sass" "auto"]}
+  :aliases {"css"        ["do" ["shell" "npm" "install"] ["shell" "npm" "run" "sass"]]
+            "css-auto"   ["sass" "auto"]
+            "build-test" ["-U" "do" ["clean"] ["bower" "install"] ["css"] ["cljsbuild" "once" "dev"]]
+            "build"      ["-U" "do" ["clean"] ["bower" "install"] ["css"] ["cljsbuild" "once" "min"]]}
 
   :cljsbuild {
               :builds [{:id           "dev"
@@ -82,4 +87,5 @@
          :delete-output-dir true
          :source-maps       true
          ;; :style :nested
-         })
+         }
+  )
