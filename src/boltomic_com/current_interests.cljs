@@ -1,5 +1,5 @@
-(ns boltomic.current-interests
-  (:require [boltomic.common :refer [technology-component]]))
+(ns boltomic-com.current-interests
+  (:require [boltomic-com.common :refer [technology-component]]))
 
 
 (def current-interests

@@ -1,6 +1,6 @@
-(ns boltomic.footer
-  (:require [boltomic.contact-me :refer [contact-me-component]]
-            [boltomic.my-availability :refer [my-availability-component]]
+(ns boltomic-com.footer
+  (:require [boltomic-com.contact-me :refer [contact-me-component]]
+            [boltomic-com.my-availability :refer [my-availability-component]]
             [reagent.core :as reagent :refer [atom create-class]]))
 
 

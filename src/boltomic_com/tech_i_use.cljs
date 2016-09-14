@@ -1,5 +1,5 @@
-(ns boltomic.tech-i-use
-  (:require [boltomic.common :refer [technology-component]]))
+(ns boltomic-com.tech-i-use
+  (:require [boltomic-com.common :refer [technology-component]]))
 
 
 (def technologies

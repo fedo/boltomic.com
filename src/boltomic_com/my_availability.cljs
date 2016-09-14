@@ -1,4 +1,4 @@
-(ns boltomic.my-availability)
+(ns boltomic-com.my-availability)
 
 
 (defn my-availability-component

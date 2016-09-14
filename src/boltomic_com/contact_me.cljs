@@ -1,4 +1,4 @@
-(ns boltomic.contact-me)
+(ns boltomic-com.contact-me)
 
 
 (defn contact-me-component

@@ -1,5 +1,5 @@
-(ns boltomic.menu
-  (:require [boltomic.state :as state :refer [menu*]]))
+(ns boltomic-com.menu
+  (:require [boltomic-com.state :as state :refer [menu*]]))
 
 
 

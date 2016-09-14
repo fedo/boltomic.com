@@ -1,4 +1,4 @@
-(ns boltomic.common)
+(ns boltomic-com.common)
 
 
 (defn technology-component

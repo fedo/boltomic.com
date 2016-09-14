@@ -1,5 +1,5 @@
-(ns boltomic.about-me
-  (:require [boltomic.state :refer [window*]]))
+(ns boltomic-com.about-me
+  (:require [boltomic-com.state :refer [window*]]))
 
 
 (defn about-me-component

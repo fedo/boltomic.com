@@ -1,5 +1,5 @@
-(ns boltomic.specialities
-  (:require [boltomic.common :refer [technology-component]]))
+(ns boltomic-com.specialities
+  (:require [boltomic-com.common :refer [technology-component]]))
 
 
 (def specialities

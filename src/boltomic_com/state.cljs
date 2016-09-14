@@ -1,4 +1,4 @@
-(ns boltomic.state
+(ns boltomic-com.state
   (:require [reagent.core :as reagent :refer [atom cursor]]
             [goog.events :as events])
   (:import goog.events))

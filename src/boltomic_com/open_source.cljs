@@ -1,4 +1,4 @@
-(ns boltomic.open-source)
+(ns boltomic-com.open-source)
 
 
 (defn open-source-component
