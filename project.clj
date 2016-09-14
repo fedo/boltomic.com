@@ -1,12 +1,13 @@
-(defproject boltomic-com "0.1.0-SNAPSHOT"
-  :description "FIXME: write this!"
-  :url "http://example.com/FIXME"
+(defproject boltomic-com "0.2.0-SNAPSHOT"
+  :description "www.boltomic.com"
+  :url "https://github.com/fedo/boltomic.com"
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
 
   :min-lein-version "2.6.1"
 
-  :dependencies [[org.clojure/clojure "1.8.0"]
+  :dependencies [[com.taoensso/timbre "4.7.4"]
+                 [org.clojure/clojure "1.8.0"]
                  [org.clojure/clojurescript "1.9.89"]
                  [org.clojure/core.async "0.2.385"
                   :exclusions [org.clojure/tools.reader]]
@@ -16,10 +17,16 @@
   :plugins [[lein-bower "0.5.1"]
             [lein-figwheel "0.5.4-7"]
             [lein-cljsbuild "1.1.4" :exclusions [[org.clojure/clojure]]]
-            [lein-sass "0.3.7"]]
+            [lein-sass "0.3.7"]
+            [lein-shell "0.4.0"]]
 
-  :bower-dependencies [[material-design-lite "1.0.6"]
+  :bower-dependencies [[material-design-lite "1.2.1"]
                        [animate.css "3.4.0"]]
+
+  :aliases {"css"        ["do" ["shell" "npm" "install"] ["shell" "npm" "run" "sass"]]
+            "css-auto"   ["sass" "auto"]
+            "build-test" ["-U" "do" ["clean"] ["bower" "install"] ["css"] ["cljsbuild" "once" "dev"]]
+            "build"      ["-U" "do" ["clean"] ["bower" "install"] ["css"] ["cljsbuild" "once" "min"]]}
 
   :source-paths ["src"]
 

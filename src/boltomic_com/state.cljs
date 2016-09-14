@@ -1,5 +1,13 @@
 (ns boltomic-com.state
+  (:require-macros [reagent.ratom :refer [reaction]])
   (:require [reagent.core :as reagent :refer [atom cursor]]
+            [re-frame.core :refer [reg-event-db
+                                   path
+                                   reg-sub
+                                   dispatch
+                                   dispatch-sync
+                                   subscribe]]
+            [taoensso.timbre :as timbre]
             [goog.events :as events])
   (:import goog.events))
 
@@ -23,29 +31,44 @@
   []
   (swap! menu* assoc :visible (not (:visible @menu*))))
 
+(reg-sub :app/window-inner-height
+  (fn [db _] (get-in db [:window/inner-height])))
 
-(defn update-window-inner-width
-  []
-  (reset! window*
-    (assoc-in @window* [:inner-height :value] (-> js/window .-innerHeight))))
-
-
-(defn unlisten-resize-event
-  []
-  (println "[unlisten-resize-event]")
-  (if-let [listener-key (get-in @window* [:inner-height :listener-key])]
-    (events/unlistenByKey listener-key)
-    (println "[unlisten-resize-event] RESIZE event listener doesn't exist")))
-
+(reg-event-db :window/update-window-inner-height
+  (fn [db [_]] (assoc-in db [:window/inner-height] (.-innerHeight js/window))))
 
 (defn listen-resize-event
   []
-  (println "[listen-resize-event]")
-  (update-window-inner-width)
-  (if (nil? (get-in @window* [:inner-height :listener-key]))
+  (dispatch [:window/update-window-inner-height])
+  (if (nil? @(subscribe [:app/window-inner-height]))
     (let [listener-key (events/listen js/window goog.events.EventType.RESIZE
                          (fn [e]
-                           (update-window-inner-width)))]
-      (reset! window*
-        (assoc-in @window* [:inner-height :listener-key] listener-key)))
-    (println "[listen-resize-event] RESIZE event listener already exists = " (get-in @window* [:inner-height :value]))))
+                           (dispatch [:window/update-window-inner-height])))]
+      (dispatch [:scroll/update-scroll-y-listener-key listener-key]))
+    (timbre/error "listen-resize-event already listening")))
+
+(reg-sub :app/scroll-y
+  (fn [db _] (get-in db [:window/scroll :scroll-y])))
+
+(reg-sub :app/scroll-y-listener-key
+  (fn [db _] (get-in db [:window/scroll :scroll-y-listener-key])))
+
+
+(reg-event-db :scroll/update
+  (fn [db [_]] (assoc-in db [:window/scroll :scroll-y] (.-scrollY js/window))))
+
+(reg-event-db :scroll/update-scroll-y-listener-key
+  (fn
+    [db [_ listener-key]]
+    (assoc-in db [:window/scroll :scroll-y-listener-key] listener-key)))
+
+(defn listen-scroll-event
+  []
+  (dispatch [:scroll/update])
+  (if (nil? @(subscribe [:app/scroll-y]))
+    (let [listener-key (events/listen js/window goog.events.EventType.SCROLL
+                         (fn [e]
+                           (.log js/console e)
+                           (dispatch [:scroll/update])))]
+      (dispatch [:scroll/update-scroll-y-listener-key listener-key]))
+    (timbre/error "listen-scroll-event already listening")))

@@ -16,3 +16,4 @@ bower_components
 npm-debug.log
 resources/public/css
 node_modules
+*.iml
