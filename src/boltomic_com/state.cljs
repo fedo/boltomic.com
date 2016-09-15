@@ -8,8 +8,9 @@
                                    dispatch-sync
                                    subscribe]]
             [taoensso.timbre :as timbre]
-            [goog.events :as events])
-  (:import goog.events))
+            [goog.events :as events]
+            [goog.dom :as gdom])
+  (:import goog.dom goog.events goog.events.EventType))
 
 
 (def app-state (atom {:menu   {:visible false}
@@ -31,44 +32,59 @@
   []
   (swap! menu* assoc :visible (not (:visible @menu*))))
 
+(reg-event-db :window/update-window-inner-height
+  (fn [db [_]] (assoc-in db [:window/inner-height] (.-innerHeight js/window))))
+
+
+(reg-event-db :scroll/update-scroll-top
+  (fn [db [_]]
+    (let [scroll-top (when-let [e (gdom/getElementByClass "mdl-layout__content")] (.-scrollTop e))]
+      (assoc-in db [:content/scroll :scroll-top] scroll-top))))
+
+
+(reg-event-db :scroll/update-scroll-top-listener-key
+  (fn
+    [db [_ listener-key]]
+    (assoc-in db [:content/scroll :scroll-listener-key] listener-key)))
+
+
+(reg-event-db :window/update-window-inner-height-listener-key
+  (fn [db [_]] (assoc-in db [:window/inner-height-listener-key] (.-innerHeight js/window))))
+
+
 (reg-sub :app/window-inner-height
   (fn [db _] (get-in db [:window/inner-height])))
 
-(reg-event-db :window/update-window-inner-height
-  (fn [db [_]] (assoc-in db [:window/inner-height] (.-innerHeight js/window))))
+
+(reg-sub :app/window-inner-height-listener-key (fn [db _] (get-in db [:window/inner-height-listener-key])))
+
+
+(reg-sub :app/scroll-top (fn [db _] (get-in db [:content/scroll :scroll-top])))
+
+
+(reg-sub :app/scroll-listener-key (fn [db _] (get-in db [:content/scroll :scroll-listener-key])))
+
 
 (defn listen-resize-event
   []
   (dispatch [:window/update-window-inner-height])
-  (if (nil? @(subscribe [:app/window-inner-height]))
+  (if (nil? @(subscribe [:app/window-inner-height-listener-key]))
     (let [listener-key (events/listen js/window goog.events.EventType.RESIZE
                          (fn [e]
                            (dispatch [:window/update-window-inner-height])))]
-      (dispatch [:scroll/update-scroll-y-listener-key listener-key]))
+      (timbre/info "listen-resize-event")
+      (dispatch [:window/update-window-inner-height-listener-key listener-key]))
     (timbre/error "listen-resize-event already listening")))
 
-(reg-sub :app/scroll-y
-  (fn [db _] (get-in db [:window/scroll :scroll-y])))
-
-(reg-sub :app/scroll-y-listener-key
-  (fn [db _] (get-in db [:window/scroll :scroll-y-listener-key])))
-
-
-(reg-event-db :scroll/update
-  (fn [db [_]] (assoc-in db [:window/scroll :scroll-y] (.-scrollY js/window))))
-
-(reg-event-db :scroll/update-scroll-y-listener-key
-  (fn
-    [db [_ listener-key]]
-    (assoc-in db [:window/scroll :scroll-y-listener-key] listener-key)))
 
 (defn listen-scroll-event
   []
-  (dispatch [:scroll/update])
-  (if (nil? @(subscribe [:app/scroll-y]))
-    (let [listener-key (events/listen js/window goog.events.EventType.SCROLL
+  (dispatch [:scroll/update-scroll-top])
+  (if (nil? @(subscribe [:app/scroll-top]))
+    (let [listener-key (events/listen js/window "scroll"
                          (fn [e]
-                           (.log js/console e)
-                           (dispatch [:scroll/update])))]
-      (dispatch [:scroll/update-scroll-y-listener-key listener-key]))
+                           (dispatch [:scroll/update-scroll-top]))
+                         true)]
+      (timbre/info "listen-scroll-event")
+      (dispatch [:scroll/update-scroll-top-listener-key listener-key]))
     (timbre/error "listen-scroll-event already listening")))

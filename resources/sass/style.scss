@@ -6,3 +6,7 @@
 @import "core.scss";
 @import "menu.scss";
 @import "sections.scss";
+
+.mdl-layout__content {
+  margin-top: -56px;
+}

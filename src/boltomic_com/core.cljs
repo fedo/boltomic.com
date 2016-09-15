@@ -15,11 +15,15 @@
 
 (defn header
   []
-  (let []
+  (let [inner-height*           (subscribe [:app/window-inner-height])
+        scroll-top              (subscribe [:app/scroll-top])
+        scrolled-below-slides?* (reaction (pos? (- (+ 60 @scroll-top) @inner-height*)))]
     (fn []
       (let [menu-visible (:visible @menu*)]
         [:header.mdl-layout__header.mdl-layout__header--seamed.mdl-layout__header--no-drawer-button
-         {:class-name (when menu-visible "bltmc-mdl-layout__header--menu-open")}
+         {:class-name (clojure.string/join ""
+                        [(when menu-visible "bltmc-mdl-layout__header--menu-open")
+                         (when-not (or menu-visible @scrolled-below-slides?*) "mdl-layout__header--transparent")])}
          [:div.mdl-layout__header-row
           [:span.mdl-layout-title
            [:a {:href "#"}
@@ -32,7 +36,6 @@
              :on-click #(state/toggle-menu!)}
             [:i.material-icons (if-not menu-visible
                                  "menu" "close")]]]]]))))
-
 
 
 (defn content
