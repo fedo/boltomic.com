@@ -19,7 +19,7 @@
             [lein-sass "0.3.7"]
             [lein-shell "0.4.0"]]
 
-  :aliases {"bower"      ["shell" "npm" "run" "bower"]
+  :aliases {"bower"      ["do" ["shell" "npm" "run" "bower"]]
             "css"        ["do" ["shell" "npm" "install"] ["shell" "npm" "run" "sass"]]
             "css-auto"   ["sass" "auto"]
             "build-test" ["-U" "do" ["clean"] ["bower" "install"] ["css"] ["cljsbuild" "once" "dev"]]
