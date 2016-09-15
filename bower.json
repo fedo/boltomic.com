@@ -1,0 +1,21 @@
+{
+  "name": "boltomic",
+  "description": "boltomic.com",
+  "main": "gulp.js",
+  "authors": [
+    "Federico Roffi <fedoverseas@gmail.com>"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/fedo/boltomic.com",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "material-design-lite": "^1.2.1",
+    "animate.css": "^3.5.2"
+  }
+}

@@ -14,16 +14,13 @@
                  [reagent "0.6.0"]
                  [re-frame "0.8.0"]]
 
-  :plugins [[lein-bower "0.5.1"]
-            [lein-figwheel "0.5.4-7"]
+  :plugins [[lein-figwheel "0.5.4-7"]
             [lein-cljsbuild "1.1.4" :exclusions [[org.clojure/clojure]]]
             [lein-sass "0.3.7"]
             [lein-shell "0.4.0"]]
 
-  :bower-dependencies [[material-design-lite "1.2.1"]
-                       [animate.css "3.4.0"]]
-
-  :aliases {"css"        ["do" ["shell" "npm" "install"] ["shell" "npm" "run" "sass"]]
+  :aliases {"bower"      ["shell" "npm" "run" "bower"]
+            "css"        ["do" ["shell" "npm" "install"] ["shell" "npm" "run" "sass"]]
             "css-auto"   ["sass" "auto"]
             "build-test" ["-U" "do" ["clean"] ["bower" "install"] ["css"] ["cljsbuild" "once" "dev"]]
             "build"      ["-U" "do" ["clean"] ["bower" "install"] ["css"] ["cljsbuild" "once" "min"]]}

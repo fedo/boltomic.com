@@ -4,7 +4,9 @@
   "description": "boltomic.com",
   "main": "gulp.js",
   "scripts": {
-    "sass": "node_modules/gulp/bin/gulp.js sass"
+    "sass": "node_modules/gulp/bin/gulp.js sass",
+    "bower": "node_modules/bower/bin/bower install -F"
+
   },
   "dependencies": {
     "gulp": "^3.9.0",
