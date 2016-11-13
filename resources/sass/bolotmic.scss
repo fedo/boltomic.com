@@ -3,10 +3,11 @@
 @import "material-design-lite";
 @import "../../bower_components/animate.css/animate.min";
 
-@import "core.scss";
-@import "menu.scss";
-@import "sections.scss";
+@import "core";
+@import "menu";
+@import "sections";
 
 .mdl-layout__content {
-  margin-top: -56px;
+  margin-top: -64px;
+
 }

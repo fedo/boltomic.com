@@ -21,7 +21,6 @@
 
   :aliases {"bower"      ["do" ["shell" "npm" "run" "bower"]]
             "css"        ["do" ["shell" "npm" "install"] ["shell" "npm" "run" "sass"]]
-            "css-auto"   ["sass" "auto"]
             "build-test" ["-U" "do" ["clean"] ["bower" "install"] ["css"] ["cljsbuild" "once" "dev"]]
             "build"      ["-U" "do" ["clean"] ["bower" "install"] ["css"] ["cljsbuild" "once" "min"]]}
 

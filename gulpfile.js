@@ -1,13 +1,17 @@
-var gulp = require('gulp');
+var argv = require('yargs').argv;
+var autoprefixer = require('gulp-autoprefixer');
 var ftp = require('vinyl-ftp');
+var gulp = require('gulp');
+var gulpSize = require('gulp-size');
 var gutil = require('gulp-util');
 var minimist = require('minimist');
-var args = minimist(process.argv);
-var sass = require('gulp-sass');
-var gulpif = require('gulp-if');
 var notify = require('gulp-notify');
-var gulpSize = require('gulp-size');
-var autoprefixer = require('gulp-autoprefixer');
+var sass = require('gulp-sass');
+var sourcemaps = require('gulp-sourcemaps');
+
+
+var sassPath = './resources/sass/*.scss';
+var destPath = './resources/public/css';
 
 
 gulp.task('deploy', function () {
@@ -26,21 +30,11 @@ gulp.task('deploy', function () {
 });
 
 
-gulp.task('sass', function(){
-    var sassPath = './resources/sass/style.scss';
-    var dest_path    = './resources/public/';
-    gulp.src(sassPath)
-        .pipe(sass())
-        .on('error', notify.onError(function(error) {
-            return 'SASS error compile: ' + error.message + ' on line ' + error.lineNumber + ' in file ' + error.fileName;
-        }))
-        //.pipe(autoprefixer({
-        //    browsers: ['last 3 versions'],
-        //    cascade: false
-        //}))
-        //.on('error', notify.onError(function(error) {
-        //    return 'autoprefixer error compile: ' + error;
-        //}))
-        .pipe(gulp.dest(dest_path + '/css'))
+gulp.task('sass', function () {
+    return gulp.src(sassPath)
+        .pipe(sourcemaps.init())
+        .pipe(sass({outputStyle: 'compressed'}))
+        .pipe(sourcemaps.write())
+        .pipe(gulp.dest(destPath).on('error', sass.logError))
         .pipe(gulpSize({title: 'sass'}))
 });
