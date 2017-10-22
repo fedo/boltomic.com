@@ -1,116 +1,125 @@
-(defproject boltomic-com "0.2.0-SNAPSHOT"
-  :description "www.boltomic.com"
-  :url "https://github.com/fedo/boltomic.com"
+(defproject boltomic "0.1.0-SNAPSHOT"
+  :description "FIXME: write description"
+  :url "http://example.com/FIXME"
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
 
-  :min-lein-version "2.6.1"
+  :dependencies [[org.clojure/clojure "1.8.0"]
+                 [ring-server "0.5.0"]
+                 [reagent "0.7.0"]
+                 [reagent-utils "0.2.1"]
+                 [ring "1.6.2"]
+                 [ring/ring-defaults "0.3.1"]
+                 [compojure "1.6.0"]
+                 [hiccup "1.0.5"]
+                 [yogthos/config "0.9"]
+                 [org.clojure/clojurescript "1.9.946"
+                  :scope "provided"]
+                 [secretary "1.2.3"]
+                 [venantius/accountant "0.2.0"
+                  :exclusions [org.clojure/tools.reader]]]
 
-  :dependencies [[com.taoensso/timbre "4.7.4"]
-                 [org.clojure/clojure "1.8.0"]
-                 [org.clojure/clojurescript "1.9.89"]
-                 [org.clojure/core.async "0.2.385"
-                  :exclusions [org.clojure/tools.reader]]
-                 [reagent "0.6.0"]
-                 [re-frame "0.8.0"]]
+  :plugins [[lein-environ "1.0.2"]
+            [lein-cljsbuild "1.1.5"]
+            [lein-asset-minifier "0.2.7"
+             :exclusions [org.clojure/clojure]]]
 
-  :plugins [[lein-figwheel "0.5.4-7"]
-            [lein-cljsbuild "1.1.4" :exclusions [[org.clojure/clojure]]]
-            [lein-sass "0.3.7"]
-            [lein-shell "0.4.0"]]
+  :ring {:handler boltomic.handler/app
+         :uberwar-name "boltomic.war"}
 
-  :aliases {"bower"      ["do" ["shell" "npm" "run" "bower"]]
-            "css"        ["do" ["shell" "npm" "install"] ["shell" "npm" "run" "sass"]]
-            "build-test" ["-U" "do" ["clean"] ["bower" "install"] ["css"] ["cljsbuild" "once" "dev"]]
-            "build"      ["-U" "do" ["clean"] ["bower" "install"] ["css"] ["cljsbuild" "once" "min"]]}
+  :min-lein-version "2.5.0"
 
-  :source-paths ["src"]
+  :uberjar-name "boltomic.jar"
 
-  :clean-targets ^{:protect false} ["resources/public/js/compiled" "target"]
+  :main boltomic.server
 
-  :cljsbuild {:builds
-              [{:id "dev"
-                :source-paths ["src"]
+  :clean-targets ^{:protect false}
+  [:target-path
+   [:cljsbuild :builds :app :compiler :output-dir]
+   [:cljsbuild :builds :app :compiler :output-to]]
 
-                ;; the presence of a :figwheel configuration here
-                ;; will cause figwheel to inject the figwheel client
-                ;; into your build
-                :figwheel {:on-jsload "boltomic-com.core/on-js-reload"
-                           ;; :open-urls will pop open your application
-                           ;; in the default browser once Figwheel has
-                           ;; started and complied your application.
-                           ;; Comment this out once it no longer serves you.
-                           :open-urls ["http://localhost:3449/index.html"]}
+  :source-paths ["src/clj" "src/cljc"]
+  :test-paths ["spec/clj"]
+  :resource-paths ["resources" "target/cljsbuild"]
 
-                :compiler {:main boltomic-com.core
-                           :asset-path "js/compiled/out"
-                           :output-to "resources/public/js/compiled/boltomic_com.js"
-                           :output-dir "resources/public/js/compiled/out"
-                           :source-map-timestamp true
-                           ;; To console.log CLJS data-structures make sure you enable devtools in Chrome
-                           ;; https://github.com/binaryage/cljs-devtools
-                           :preloads [devtools.preload]}}
-               ;; This next build is an compressed minified build for
-               ;; production. You can build this with:
-               ;; lein cljsbuild once min
-               {:id "min"
-                :source-paths ["src"]
-                :compiler {:output-to "resources/public/js/compiled/boltomic_com.js"
-                           :main boltomic-com.core
-                           :optimizations :advanced
-                           :pretty-print false}}]}
+  :minify-assets
+  {:assets
+   {"resources/public/css/site.min.css" "resources/public/css/site.css"}}
 
-  :figwheel {;; :http-server-root "public" ;; default and assumes "resources"
-             ;; :server-port 3449 ;; default
-             ;; :server-ip "127.0.0.1"
+  :cljsbuild
+  {:builds {:min
+            {:source-paths ["src/cljs" "src/cljc" "env/prod/cljs"]
+             :compiler
+             {:output-to        "target/cljsbuild/public/js/app.js"
+              :output-dir       "target/cljsbuild/public/js"
+              :source-map       "target/cljsbuild/public/js/app.js.map"
+              :optimizations :advanced
+              :pretty-print  false}}
+            :app
+            {:source-paths ["src/cljs" "src/cljc" "env/dev/cljs"]
+             :figwheel {:on-jsload "boltomic.core/mount-root"}
+             :compiler
+             {:main "boltomic.dev"
+              :asset-path "/js/out"
+              :output-to "target/cljsbuild/public/js/app.js"
+              :output-dir "target/cljsbuild/public/js/out"
+              :source-map true
+              :optimizations :none
+              :pretty-print  true}}
 
-             :css-dirs ["resources/public/css"]} ;; watch and update CSS
+            :test
+            {:source-paths ["src/cljs" "src/cljc" "spec/cljs"]
+             :compiler {:output-to "target/test.js"
+                        :optimizations :whitespace
+                        :pretty-print true}}
 
-             ;; Start an nREPL server into the running figwheel process
-             ;; :nrepl-port 7888
+            }
+   :test-commands {"unit" ["phantomjs" "runners/speclj" "target/test.js"]}
+   }
 
-             ;; Server Ring Handler (optional)
-             ;; if you want to embed a ring handler into the figwheel http-kit
-             ;; server, this is for simple ring servers, if this
+   :doo {:build "test"}
 
-             ;; doesn't work for you just run your own server :) (see lein-ring)
-
-             ;; :ring-handler hello_world.server/handler
-
-             ;; To be able to open files in your editor from the heads up display
-             ;; you will need to put a script on your path.
-             ;; that script will have to take a file path and a line number
-             ;; ie. in  ~/bin/myfile-opener
-             ;; #! /bin/sh
-             ;; emacsclient -n +$2 $1
-             ;;
-             ;; :open-file-command "myfile-opener"
-
-             ;; if you are using emacsclient you can just use
-             ;; :open-file-command "emacsclient"
-
-             ;; if you want to disable the REPL
-             ;; :repl false
-
-             ;; to configure a different figwheel logfile path
-             ;; :server-logfile "tmp/logs/figwheel-logfile.log"
-             
+  :figwheel
+  {:http-server-root "public"
+   :server-port 3449
+   :nrepl-port 7002
+   :nrepl-middleware ["cemerick.piggieback/wrap-cljs-repl"
+                      ]
+   :css-dirs ["resources/public/css"]
+   :ring-handler boltomic.handler/app}
 
 
-  ;; setting up nREPL for Figwheel and ClojureScript dev
-  ;; Please see:
-  ;; https://github.com/bhauman/lein-figwheel/wiki/Using-the-Figwheel-REPL-within-NRepl
+  :sass {:src "src/sass"
+         :dst "resources/public/css"}
 
+  :profiles {:dev {:repl-options {:init-ns boltomic.repl
+                                  :nrepl-middleware [cemerick.piggieback/wrap-cljs-repl]}
 
-  :profiles {:dev {:dependencies [[binaryage/devtools "0.7.2"]
-                                  [figwheel-sidecar "0.5.4-7"]
-                                  [com.cemerick/piggieback "0.2.1"]]
-                   ;; need to add dev source path here to get user.clj loaded
-                   :source-paths ["src" "dev"]
-                   ;; for CIDER
-                   ;; :plugins [[cider/cider-nrepl "0.12.0"]]
-                   :repl-options {; for nREPL dev you really need to limit output
-                                  :init (set! *print-length* 50)
-                                  :nrepl-middleware [cemerick.piggieback/wrap-cljs-repl]}}})
+                   :dependencies [[binaryage/devtools "0.9.7"]
+                                  [ring/ring-mock "0.3.1"]
+                                  [ring/ring-devel "1.6.2"]
+                                  [prone "1.1.4"]
+                                  [figwheel-sidecar "0.5.14"]
+                                  [org.clojure/tools.nrepl "0.2.13"]
+                                  [com.cemerick/piggieback "0.2.2"]
+                                  [speclj "3.3.1"]
+                                  [pjstadig/humane-test-output "0.8.3"]
+                                  ]
 
+                   :source-paths ["env/dev/clj"]
+                   :plugins [[lein-figwheel "0.5.14"]
+                             [speclj "3.3.1"]
+                             
+                             [lein-sassy "1.0.7"]]
 
+                   :injections [(require 'pjstadig.humane-test-output)
+                                (pjstadig.humane-test-output/activate!)]
+
+                   :env {:dev true}}
+
+             :uberjar {:hooks [minify-assets.plugin/hooks]
+                       :source-paths ["env/prod/clj"]
+                       :prep-tasks ["compile" ["cljsbuild" "once" "min"]]
+                       :env {:production true}
+                       :aot :all
+                       :omit-source true}})
