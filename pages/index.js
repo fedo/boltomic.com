@@ -8,12 +8,17 @@ const Home = () => (
     </Head>
 
     <main>
-      <h1 className="title">
-        Welcome to <a href="https://boltomic.com">Boltomic</a>!
-      </h1>
+      <div className="Boltomic__logo-wrapper">
+        <a
+          href="https://www.linkedin.com/company/boltomic-ltd"
+          target="_blank"
+        >
+          <img className="Boltomic__logo" src="/boltomic-logo-white.png" />
+        </a>
+      </div>
     </main>
-    
-    <footer>
+
+    <footer className="Boltomic__footer">
       <a
         href="https://zeit.co?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
         target="_blank"
@@ -24,9 +29,22 @@ const Home = () => (
     </footer>
 
     <style jsx>{`
+
+      .Boltomic__logo-wrapper {
+
+      }
+
+      .Boltomic__logo {
+        width: 100%;
+      }
+
+      .Boltomic__footer {
+        background: white;
+      }
+      
       .container {
         min-height: 100vh;
-        padding: 0 0.5rem;
+        padding: 0;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -153,6 +171,7 @@ const Home = () => (
     <style jsx global>{`
       html,
       body {
+        background-color: #334466;
         padding: 0;
         margin: 0;
         font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
