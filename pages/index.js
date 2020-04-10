@@ -9,7 +9,7 @@ const Home = () => (
 
     <main>
       <h1 className="title">
-        Welcome to <a href="https://www.boltomic.com">Boltomic</a>!
+        Welcome to <a href="https://boltomic.com">Boltomic</a>!
       </h1>
     </main>
     
