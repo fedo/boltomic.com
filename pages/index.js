@@ -18,7 +18,7 @@ const Home = () => (
       </div>
     </main>
 
-    <footer className="Boltomic__footer">
+    {/* <footer className="Boltomic__footer">
       <a
         href="https://zeit.co?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
         target="_blank"
@@ -26,7 +26,7 @@ const Home = () => (
       >
         Powered by <img src="/zeit.svg" alt="ZEIT Logo" />
       </a>
-    </footer>
+    </footer> */}
 
     <style jsx>{`
 
